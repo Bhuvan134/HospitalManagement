@@ -79,7 +79,7 @@
         // Fetch Patient for Edit
         async function fetchPatient() {
             const email = document.getElementById('editEmail').value;
-            const res = await fetch(${apiBase}/${email});
+            const res = await fetch(`${apiBase}/${email}`);
             if (res.ok) {
                 const patient = await res.json();
                 const details = `
@@ -108,7 +108,7 @@
                 phone: document.getElementById('editPhone').value,
                 medicalRecords: document.getElementById('editMedicalRecords').value,
             };
-            const res = await fetch(${apiBase}/${email}, {
+            const res = await fetch(`${apiBase}/${email}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(updatedPatient),
@@ -120,7 +120,7 @@
         document.getElementById('deleteForm').onsubmit = async (e) => {
             e.preventDefault();
             const email = document.getElementById('deleteEmail').value;
-            const res = await fetch(${apiBase}/${email}, {
+            const res = await fetch(`${apiBase}/${email}`, {
                 method: 'DELETE',
             });
             alert((await res.json()).message);
