@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Management</title>
+    <header>
+        <h1>Hospital Management System</h1>
+    </header>
+    
+    <nav>
+        <a href="patient.html">Manage Patients</a>
+        <a href="doctor.html">Manage Doctors</a>
+        <a href="appointments.html">Manage Appointments</a>
+        <a href="billing.html">Manage Billing</a>
+    </nav>
+    <link rel="stylesheet" href="doctor.css">
+
+</head>
+<body>
+    <h1>Doctor Management System</h1>
+
+    <section>
+        <h2>Register Doctor</h2>
+        <form id="createForm">
+            <input type="text" id="name" placeholder="Name" required />
+            <input type="email" id="email" placeholder="Email" required />
+            <input type="number" id="age" placeholder="Age" required />
+            <input type="text" id="education" placeholder="Education" required />
+            <input type="text" id="specialist" placeholder="Specialization" required />
+            <input type="text" id="phone" placeholder="Phone Number" required />
+            <button type="submit">Create</button>
+        </form>
+    </section>
+
+    <section>
+        <h2>Edit Doctor Details</h2>
+        <form id="editForm">
+            <input type="email" id="editEmail" placeholder="Enter Email" required />
+            <button type="button" onclick="fetchDoctor()">Fetch Details</button>
+            <div id="editDetails"></div>
+        </form>
+    </section>
+
+    <section>
+        <h2>Delete Doctor Details</h2>
+        <form id="deleteForm">
+            <input type="email" id="deleteEmail" placeholder="Enter Email" required />
+            <button type="submit">Delete</button>
+        </form>
+    </section>
+
+    <script>
+        // API Base URL
+        const apiBase = 'http://localhost:5000/api/doctors';
+
+        // Create Doctor
+        document.getElementById('createForm').onsubmit = async (e) => {
+            e.preventDefault();
+            const doctor = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                age: document.getElementById('age').value,
+                education: document.getElementById('education').value,
+                specialist: document.getElementById('specialist').value,
+                phone: document.getElementById('phone').value,
+            };
+            const res = await fetch(apiBase, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(doctor),
+            });
+            alert((await res.json()).message);
+        };
+
+        // Fetch Doctor for Edit
+        async function fetchDoctor() {
+            const email = document.getElementById('editEmail').value;
+            const res = await fetch(`${apiBase}/${email}`);
+            if (res.ok) {
+                const doctor = await res.json();
+                const details = `
+                    <input type="text" id="editName" value="${doctor.name}" required />
+                    <input type="number" id="editAge" value="${doctor.age}" required />
+                    <input type="text" id="editEducation" value="${doctor.education}" required />
+                    <input type="text" id="editSpecialist" value="${doctor.specialist}" required />
+                    <input type="text" id="editPhone" value="${doctor.phone}" required />
+                    <button type="button" onclick="updateDoctor('${doctor.email}')">Update</button>
+                `;
+                document.getElementById('editDetails').innerHTML = details;
+            } else {
+                alert('Doctor not found');
+            }
+        }
+
+        // Update Doctor
+        async function updateDoctor(email) {
+            const updatedDoctor = {
+                name: document.getElementById('editName').value,
+                age: document.getElementById('editAge').value,
+                education: document.getElementById('editEducation').value,
+                specialist: document.getElementById('editSpecialist').value,
+                phone: document.getElementById('editPhone').value,
+            };
+            const res = await fetch(`${apiBase}/${email}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(updatedDoctor),
+            });
+            alert((await res.json()).message);
+        }
+
+        // Delete Doctor
+        document.getElementById('deleteForm').onsubmit = async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('deleteEmail').value;
+            const res = await fetch(`${apiBase}/${email}`, {
+                method: 'DELETE',
+            });
+            alert((await res.json()).message);
+        };
+    </script>
+</body>
+</html>

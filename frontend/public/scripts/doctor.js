@@ -44,7 +44,7 @@ async function fetchDoctors() {
 
 // Function to edit a doctor's details
 async function editDoctor(id) {
-    const response = await fetch(${apiUrl}/${id});
+    const response = await fetch(`${apiUrl}/${id}`);
     const doctor = await response.json();
     if (response.ok) {
         document.getElementById('name').value = doctor.name;
@@ -60,7 +60,7 @@ async function editDoctor(id) {
 async function deleteDoctor(id) {
     const confirmation = confirm('Are you sure you want to delete this doctor?');
     if (confirmation) {
-        const response = await fetch(${apiUrl}/${id}, { method: 'DELETE' });
+        const response = await fetch(`${apiUrl}/${id}`, { method: 'DELETE' });
         if (response.ok) {
             fetchDoctors(); // Refresh the doctor list after deletion
             alert('Doctor deleted successfully');

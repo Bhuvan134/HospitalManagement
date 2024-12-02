@@ -24,10 +24,4 @@ app.use('/api/patients', patientRoutes);
 const doctorRoutes = require('./routes/doctorRoutes');
 app.use('/api/doctors', doctorRoutes);
 
-const appointmentRoutes = require('./routes/appointmentRoutes');
-app.use('/api/appointments', appointmentRoutes);
-
-const billingRoutes = require('./routes/billingRoutes');
-app.use('/api/billings', billingRoutes);
-
 app.listen(5000, () => console.log('Server running on http://localhost:5000'));
