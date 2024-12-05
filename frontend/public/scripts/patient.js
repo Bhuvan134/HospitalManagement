@@ -58,7 +58,7 @@ async function savePatient(event) {
 
     if (patientId) {
         // Update existing patient
-        await fetch(${apiUrl}/${patientId}, {
+        await fetch(`${apiUrl}/${patientId}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(patientData)
@@ -79,14 +79,14 @@ async function savePatient(event) {
 // Delete a patient
 async function deletePatient(id) {
     if (confirm('Are you sure you want to delete this patient?')) {
-        await fetch(${apiUrl}/${id}, { method: 'DELETE' });
+        await fetch(`${apiUrl}/${id}`, { method: 'DELETE' });
         fetchPatients(); // Fetch updated data to refresh the table
     }
 }
 
 // Populate the form for editing
 async function editPatient(id) {
-    const response = await fetch(${apiUrl}/${id});
+    const response = await fetch(`${apiUrl}/${id}`);
     const patient = await response.json();
 
     document.getElementById('patient-id').value = patient._id;
