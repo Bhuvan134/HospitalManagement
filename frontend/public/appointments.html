@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Management</title>
+    <header>
+        <h1>Hospital Management System</h1>
+    </header>
+
+    <nav>
+        <a href="patient.html">Manage Patients</a>
+        <a href="doctor.html">Manage Doctors</a>
+        <a href="appointments.html">Manage Appointments</a>
+        <a href="billing.html">Manage Billing</a>
+    </nav>
+    <link rel="stylesheet" href="appointment.css">
+</head>
+<body>
+    <h1>Appointment Management System</h1>
+    <section>
+        <h2>Schedule Appointment</h2>
+        <form id="createAppointmentForm">
+            <input type="text" id="appointmentName" placeholder="Patient Name" required />
+            <input type="email" id="appointmentEmail" placeholder="Patient Email" required />
+            <input type="number" id="appointmentAge" placeholder="Patient Age" required />
+            <textarea id="problem" placeholder="Problem Description" required></textarea>
+            <input type="text" id="doctorName" placeholder="Doctor Name" required />
+            <button type="submit">Schedule</button>
+        </form>
+    </section>
+
+    <section>
+        <h2>Edit Appointment</h2>
+        <form id="editAppointmentForm">
+            <input type="email" id="editAppointmentEmail" placeholder="Enter Patient Email" required />
+            <button type="button" onclick="fetchAppointment()">Fetch Appointment</button>
+            <div id="editAppointmentDetails"></div>
+        </form>
+    </section>
+
+    <section>
+        <h2>Cancel Appointment</h2>
+        <form id="deleteAppointmentForm">
+            <input type="email" id="deleteAppointmentEmail" placeholder="Enter Patient Email" required />
+            <button type="submit">Cancel</button>
+        </form>
+    </section>
+
+    <script>
+        // API Base URL
+        const apiBase = 'http://localhost:5000/api/appointments';
+
+        // Create Appointment
+        document.getElementById('createAppointmentForm').onsubmit = async (e) => {
+            e.preventDefault();
+            const appointment = {
+                name: document.getElementById('appointmentName').value,
+                email: document.getElementById('appointmentEmail').value,
+                age: document.getElementById('appointmentAge').value,
+                problem: document.getElementById('problem').value,
+                doctorName: document.getElementById('doctorName').value,
+            };
+            const res = await fetch(apiBase, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(appointment),
+            });
+            alert((await res.json()).message);
+        };
+
+        // Fetch Appointment for Edit
+        async function fetchAppointment() {
+            const email = document.getElementById('editAppointmentEmail').value;
+            const res = await fetch(`${apiBase}/${email}`);
+            if (res.ok) {
+                const appointment = await res.json();
+                const details = `
+                    <input type="text" id="editAppointmentName" value="${appointment.name}" required />
+                    <input type="number" id="editAppointmentAge" value="${appointment.age}" required />
+                    <textarea id="editProblem" required>${appointment.problem}</textarea>
+                    <input type="text" id="editDoctorName" value="${appointment.doctorName}" required />
+                    <button type="button" onclick="updateAppointment('${appointment.email}')">Update</button>
+                `;
+                document.getElementById('editAppointmentDetails').innerHTML = details;
+            } else {
+                alert('Appointment not found');
+            }
+        }
+
+        // Update Appointment
+        async function updateAppointment(email) {
+            const updatedAppointment = {
+                name: document.getElementById('editAppointmentName').value,
+                age: document.getElementById('editAppointmentAge').value,
+                problem: document.getElementById('editProblem').value,
+                doctorName: document.getElementById('editDoctorName').value,
+            };
+            const res = await fetch(`${apiBase}/${email}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(updatedAppointment),
+            });
+            alert((await res.json()).message);
+        }
+
+        // Delete Appointment
+        document.getElementById('deleteAppointmentForm').onsubmit = async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('deleteAppointmentEmail').value;
+            const res = await fetch(`${apiBase}/${email}`, {
+                method: 'DELETE',
+            });
+            alert((await res.json()).message);
+        };
+    </script>
+</body>
+</html>
