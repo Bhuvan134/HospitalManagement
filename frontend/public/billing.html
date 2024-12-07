@@ -7,7 +7,6 @@
     <header>
         <h1>Hospital Management System</h1>
     </header>
-    
     <nav>
         <a href="patient.html">Manage Patients</a>
         <a href="doctor.html">Manage Doctors</a>
@@ -17,36 +16,37 @@
     <link rel="stylesheet" href="billing.css">
 </head>
 <body>
-    <h1>Billing Management System</h1>
+    <!-- Add Container -->
+    <div class="container">
+        <section>
+            <h2>Create Bill</h2>
+            <form id="createForm">
+                <input type="text" id="patientName" placeholder="Patient Name" required />
+                <input type="email" id="patientEmail" placeholder="Patient Email" required />
+                <input type="number" id="amount" placeholder="Amount" required />
+                <input type="text" id="description" placeholder="Description" required />
+                <input type="date" id="billingDate" required />
+                <button type="submit">Create</button>
+            </form>
+        </section>
 
-    <section>
-        <h2>Create Bill</h2>
-        <form id="createForm">
-            <input type="text" id="patientName" placeholder="Patient Name" required />
-            <input type="email" id="patientEmail" placeholder="Patient Email" required />
-            <input type="number" id="amount" placeholder="Amount" required />
-            <input type="text" id="description" placeholder="Description" required />
-            <input type="date" id="billingDate" required />
-            <button type="submit">Create</button>
-        </form>
-    </section>
+        <section>
+            <h2>Edit Bill</h2>
+            <form id="editForm">
+                <input type="email" id="editEmail" placeholder="Enter Patient Email" required />
+                <button type="button" onclick="fetchBill()">Fetch Details</button>
+                <div id="editDetails"></div>
+            </form>
+        </section>
 
-    <section>
-        <h2>Edit Bill</h2>
-        <form id="editForm">
-            <input type="email" id="editEmail" placeholder="Enter Patient Email" required />
-            <button type="button" onclick="fetchBill()">Fetch Details</button>
-            <div id="editDetails"></div>
-        </form>
-    </section>
-
-    <section>
-        <h2>Delete Bill</h2>
-        <form id="deleteForm">
-            <input type="email" id="deleteEmail" placeholder="Enter Patient Email" required />
-            <button type="submit">Delete</button>
-        </form>
-    </section>
+        <section>
+            <h2>Delete Bill</h2>
+            <form id="deleteForm">
+                <input type="email" id="deleteEmail" placeholder="Enter Patient Email" required />
+                <button type="submit">Delete</button>
+            </form>
+        </section>
+    </div>
 
     <script>
         // API Base URL

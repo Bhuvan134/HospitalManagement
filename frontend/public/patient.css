@@ -1,108 +1,106 @@
-/* General Reset */
+/* General Body Styling */
 body {
-    margin: 0;
     font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
     color: #333;
-    line-height: 1.6;
 }
 
-/* Header */
-header {
+/* Header Styling */
+header h1 {
+    text-align: center;
     background-color: #4caf50;
     color: white;
-    padding: 1rem 0;
-    text-align: center;
+    padding: 20px;
+    margin: 0;
 }
 
-/* Navigation */
+/* Navigation Bar */
 nav {
+    display: flex;
+    justify-content: center;
     background-color: #333;
-    padding: 0.5rem;
-    text-align: center;
+    padding: 10px 0;
 }
 
 nav a {
     color: white;
-    margin: 0 1rem;
     text-decoration: none;
+    margin: 0 15px;
     font-weight: bold;
 }
 
 nav a:hover {
-    text-decoration: underline;
+    color: #4caf50;
 }
 
-/* Page Title */
-h1 {
-    text-align: center;
-    margin-top: 1.5rem;
-    font-size: 2rem;
-    color: #333;
+/* Container Styling */
+.container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 20px;
+    flex-wrap: wrap;
 }
 
-/* Section Styles */
+/* Section Styling */
 section {
-    background: white;
-    margin: 1.5rem auto;
-    padding: 1.5rem;
-    width: 90%;
-    max-width: 600px;
+    flex: 1;
+    background-color: white;
+    padding: 15px;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    min-width: 300px;
+    box-sizing: border-box; /* Ensures padding stays inside the container */
 }
 
-/* Section Headings */
 section h2 {
     text-align: center;
+    font-size: 18px;
     color: #4caf50;
-    margin-bottom: 1rem;
 }
 
-/* Form Styles */
+/* Form Styling */
 form {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 10px;
 }
 
-form input, form select, form textarea, form button {
-    font-size: 1rem;
-    padding: 0.75rem;
+input, textarea, button {
+    padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 100%; /* Ensures inputs stay within the container */
+    box-sizing: border-box; /* Prevents overflowing due to padding */
 }
 
-form input:focus, form select:focus, form textarea:focus {
-    outline: none;
-    border-color: #4caf50;
+textarea {
+    resize: none; /* Disables manual resizing of textareas */
 }
 
-form button {
+button {
     background-color: #4caf50;
     color: white;
     border: none;
     cursor: pointer;
+    width: auto; /* Ensures buttons are not unnecessarily stretched */
+    align-self: center; /* Centers buttons horizontally */
 }
 
-form button:hover {
+button:hover {
     background-color: #45a049;
-}
-
-/* Button within Edit Details */
-#editAppointmentDetails button {
-    margin-top: 1rem;
-    width: 100%;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    section {
-        width: 95%;
+    .container {
+        flex-direction: column;
     }
 
-    nav a {
-        display: block;
-        margin: 0.5rem 0;
+    section {
+        width: 100%;
     }
 }

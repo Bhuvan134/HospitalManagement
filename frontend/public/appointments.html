@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Appointment Management</title>
+    <link rel="stylesheet" href="appointment.css">
+</head>
+<body>
     <header>
         <h1>Hospital Management System</h1>
     </header>
@@ -14,38 +17,37 @@
         <a href="appointments.html">Manage Appointments</a>
         <a href="billing.html">Manage Billing</a>
     </nav>
-    <link rel="stylesheet" href="appointment.css">
-</head>
-<body>
-    <h1>Appointment Management System</h1>
-    <section>
-        <h2>Schedule Appointment</h2>
-        <form id="createAppointmentForm">
-            <input type="text" id="appointmentName" placeholder="Patient Name" required />
-            <input type="email" id="appointmentEmail" placeholder="Patient Email" required />
-            <input type="number" id="appointmentAge" placeholder="Patient Age" required />
-            <textarea id="problem" placeholder="Problem Description" required></textarea>
-            <input type="text" id="doctorName" placeholder="Doctor Name" required />
-            <button type="submit">Schedule</button>
-        </form>
-    </section>
 
-    <section>
-        <h2>Edit Appointment</h2>
-        <form id="editAppointmentForm">
-            <input type="email" id="editAppointmentEmail" placeholder="Enter Patient Email" required />
-            <button type="button" onclick="fetchAppointment()">Fetch Appointment</button>
-            <div id="editAppointmentDetails"></div>
-        </form>
-    </section>
+    <div class="container">
+        <section>
+            <h2>Schedule Appointment</h2>
+            <form id="createAppointmentForm">
+                <input type="text" id="appointmentName" placeholder="Patient Name" required />
+                <input type="email" id="appointmentEmail" placeholder="Patient Email" required />
+                <input type="number" id="appointmentAge" placeholder="Patient Age" required />
+                <textarea id="problem" placeholder="Problem Description" required></textarea>
+                <input type="text" id="doctorName" placeholder="Doctor Name" required />
+                <button type="submit">Schedule</button>
+            </form>
+        </section>
 
-    <section>
-        <h2>Cancel Appointment</h2>
-        <form id="deleteAppointmentForm">
-            <input type="email" id="deleteAppointmentEmail" placeholder="Enter Patient Email" required />
-            <button type="submit">Cancel</button>
-        </form>
-    </section>
+        <section>
+            <h2>Edit Appointment</h2>
+            <form id="editAppointmentForm">
+                <input type="email" id="editAppointmentEmail" placeholder="Enter Patient Email" required />
+                <button type="button" onclick="fetchAppointment()">Fetch Appointment</button>
+                <div id="editAppointmentDetails"></div>
+            </form>
+        </section>
+
+        <section>
+            <h2>Cancel Appointment</h2>
+            <form id="deleteAppointmentForm">
+                <input type="email" id="deleteAppointmentEmail" placeholder="Enter Patient Email" required />
+                <button type="submit">Cancel</button>
+            </form>
+        </section>
+    </div>
 
     <script>
         // API Base URL
